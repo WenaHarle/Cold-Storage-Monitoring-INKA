@@ -26,11 +26,15 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _page(bool isDarkMode) {
-    return SingleChildScrollView(
-      child: Center(
-        child: Column(
-          children: [_logo(isDarkMode), _account(isDarkMode), _bottomImages()],
-        ),
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      child: Column(
+        children: [
+          Expanded(flex: 3, child: _logo(isDarkMode)),
+          Expanded(flex: 4, child: _account(isDarkMode)),
+          _bottomImages(),
+        ],
       ),
     );
   }
@@ -38,7 +42,6 @@ class _LoginPageState extends State<LoginPage> {
   Widget _logo(bool isDarkMode) {
     return Container(
       width: double.infinity,
-      height: 300,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: isDarkMode
@@ -182,7 +185,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _bottomImages() {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 150.0),
+      padding: const EdgeInsets.symmetric(vertical: 20.0),
       child: Align(
         alignment: Alignment.bottomCenter,
         child: Row(
