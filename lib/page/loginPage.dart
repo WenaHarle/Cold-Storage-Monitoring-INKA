@@ -21,21 +21,22 @@ class _LoginPageState extends State<LoginPage> {
 
     return Scaffold(
       backgroundColor: isDarkMode ? Colors.black : Colors.white,
-      body: _page(isDarkMode),
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          child: _page(isDarkMode),
+        ),
+      ),
     );
   }
 
   Widget _page(bool isDarkMode) {
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      child: Column(
-        children: [
-          Expanded(flex: 3, child: _logo(isDarkMode)),
-          Expanded(flex: 4, child: _account(isDarkMode)),
-          _bottomImages(),
-        ],
-      ),
+    return Column(
+      children: [
+        Expanded(flex: 3, child: _logo(isDarkMode)),
+        Expanded(flex: 4, child: _account(isDarkMode)),
+        _bottomImages(isDarkMode),
+      ],
     );
   }
 
@@ -183,24 +184,37 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _bottomImages() {
+  Widget _bottomImages(bool isDarkMode) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20.0),
+      padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: Align(
         alignment: Alignment.bottomCenter,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Image.asset(
-              'assets/images/Logo_Universitas_Brawijaya.png',
-              width: 40,
-              height: 40,
+            Text(
+              'Powered by:',
+              style: TextStyle(
+                fontSize: 16.0,
+                color: isDarkMode ? Colors.white : Colors.black,
+              ),
             ),
-            SizedBox(width: 10),
-            Image.asset(
-              'assets/images/logo_rispro.png',
-              width: 80,
-              height: 80,
+            SizedBox(height: 5.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/images/Logo_Universitas_Brawijaya.png',
+                  width: 40,
+                  height: 40,
+                ),
+                SizedBox(width: 10),
+                Image.asset(
+                  'assets/images/logo_rispro.png',
+                  width: 80,
+                  height: 80,
+                ),
+              ],
             ),
           ],
         ),

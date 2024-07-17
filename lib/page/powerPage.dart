@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class CO2Page extends StatelessWidget {
+class PowerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFF5C5B5B), // Keep AppBar background color
         title: Text(
-          'Power',
+          'CO₂ Infrared',
           style: TextStyle(
             color: Colors.white, // Set AppBar title color to white
           ),

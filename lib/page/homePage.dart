@@ -4,22 +4,24 @@ import 'pressurePage.dart';
 import 'HumidityPage.dart';
 import 'O2Page.dart';
 import 'CO2Page.dart';
-import 'CO2Infrared.dart';
+import 'powerPage.dart';
 import 'profilePage.dart';
 import 'currentPage.dart';
 import 'voltagePage.dart';
+import 'speedPage.dart';
 
 class HomePage extends StatelessWidget {
   // List of icons to be used for the buttons
   final List<IconData> icons = [
     Icons.thermostat,      // Represents Temperature
-    Icons.speed,           // Represents Pressure
+    Icons.compress_sharp,           // Represents Pressure
     Icons.opacity,         // Represents Humidity
     Icons.air,             // Represents O2
     Icons.cloud,           // Represents CO2
     Icons.light,           // Represents CO2 Infrared
     Icons.bolt,            // Represents Current
     Icons.electrical_services, // Represents Voltage
+    Icons.speed
   ];
 
   // List of texts corresponding to each button
@@ -29,9 +31,10 @@ class HomePage extends StatelessWidget {
     'Humidity',
     'O₂',
     'CO₂',
-    'CO₂ Infrared',
+    'Power',
     'Current',
     'Voltage',
+    'Speed',
   ];
 
   // List of corresponding actions for each button
@@ -70,7 +73,7 @@ class HomePage extends StatelessWidget {
       case 5:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => CO2InfraredPage()),
+          MaterialPageRoute(builder: (context) => PowerPage()),
         );
         break;
       case 6:
@@ -85,6 +88,11 @@ class HomePage extends StatelessWidget {
           MaterialPageRoute(builder: (context) => VoltagePage()),
         );
         break;
+      case 8:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => SpeedPage()),
+        );
     }
   }
 
