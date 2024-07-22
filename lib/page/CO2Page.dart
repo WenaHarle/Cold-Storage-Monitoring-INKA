@@ -8,57 +8,140 @@ class CO2Page extends StatefulWidget {
 
 class _CO2PageState extends State<CO2Page> {
   String selectedRange = '10 minutes'; // Default selected range
-  final List<String> ranges = ['10 minutes', '1 hour', '1 day', '1 month', '1 year'];
+  final List<String> ranges = ['10 minutes', '1 hour', '1 day', '1 week', '1 month', '1 year'];
   List<String> analyticUrls = [];
+  List<String> realTimeUrls = [];
+  final List<WebViewController?> _webViewControllers = [];
+
+  // Define your URLs in arrays
+  final List<String> darkModeRealTimeUrls = [
+    'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=20',
+    'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=30',
+    'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=63',
+        'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=64'
+  ];
+
+  final List<String> lightModeRealTimeUrls = [
+    'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=20',
+    'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=30',
+    'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=63',
+        'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=64'
+  ];
+
+  final Map<String, List<String>> darkModeAnalyticUrls = {
+    '10 minutes': [
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=5',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=8',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=53',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=54'
+
+    ],
+    '1 hour': [
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=5',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=8',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=53',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=54'
+    ],
+    '1 day': [
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=5',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=8',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=53',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=54'
+    ],
+    '1 week': [
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=5',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=8',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=53',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=54'
+    ],
+    '1 month': [
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=5',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=8',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=53',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=54'
+    ],
+    '1 year': [
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=5',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=8',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=53',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=54'
+    ],
+  };
+
+  final Map<String, List<String>> lightModeAnalyticUrls = {
+    '10 minutes': [
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=5',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=8',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=53',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=54'
+
+    ],
+    '1 hour': [
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=5',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=8',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=53',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=54'
+    ],
+    '1 day': [
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=5',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=8',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=53',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=54'
+    ],
+    '1 week': [
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=5',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=8',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=53',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=54'
+    ],
+    '1 month': [
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=5',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=8',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=53',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=54'
+    ],
+    '1 year': [
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=5',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=8',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=53',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=54'
+    ],
+  };
+
 
   @override
   void initState() {
     super.initState();
-    analyticUrls = generateUrls(selectedRange);
+    // Perform initialization that doesn't rely on context or theme
   }
 
-  List<String> generateUrls(String range) {
-    // Generate URLs based on the selected range
-    // You might need to adjust the logic to fit your specific URL structure and parameters
-    switch (range) {
-      case '10 minutes':
-        return [
-          'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&panelId=5',
-          'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&panelId=8',
-          'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&panelId=53',
-          'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&panelId=54'
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Update URLs based on the theme
+    _updateUrlsAndReload();
+  }
 
-        ];
-      case '1 hour':
-        return [
-          'http://example.com/1h_1',
-          'http://example.com/1h_2',
-          'http://example.com/1h_3'
-        ];
-      case '1 day':
-        return [
-          'http://example.com/1d_1',
-          'http://example.com/1d_2',
-          'http://example.com/1d_3'
-        ];
-      case '1 month':
-        return [
-          'http://example.com/1M_1',
-          'http://example.com/1M_2',
-          'http://example.com/1M_3'
-        ];
-      case '1 year':
-        return [
-          'http://example.com/1y_1',
-          'http://example.com/1y_2',
-          'http://example.com/1y_3'
-        ];
-      default:
-        return [
-          'http://example.com/default_1',
-          'http://example.com/default_2',
-          'http://example.com/default_3'
-        ];
+  void _updateUrlsAndReload() {
+    final brightness = Theme.of(context).brightness;
+    realTimeUrls = brightness == Brightness.dark ? darkModeRealTimeUrls : lightModeRealTimeUrls;
+    analyticUrls = generateAnalyticUrls(selectedRange, brightness);
+    // Reload WebViews after updating URLs
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _reloadWebViews();
+    });
+  }
+
+  List<String> generateAnalyticUrls(String range, Brightness brightness) {
+    final baseUrls = brightness == Brightness.dark ? darkModeAnalyticUrls : lightModeAnalyticUrls;
+    return baseUrls[range] ?? [];
+  }
+
+  void _reloadWebViews() {
+    for (int i = 0; i < _webViewControllers.length; i++) {
+      if (realTimeUrls.length > i) {
+        _webViewControllers[i]?.loadUrl(realTimeUrls[i]);
+      }
     }
   }
 
@@ -78,7 +161,7 @@ class _CO2PageState extends State<CO2Page> {
           Padding(
             padding: const EdgeInsets.only(right: 16.0), // Add padding to control spacing
             child: Icon(
-              Icons.air,
+              Icons.cloud,
               color: Colors.white,
             ),
           ),
@@ -86,9 +169,9 @@ class _CO2PageState extends State<CO2Page> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: SingleChildScrollView( // Add SingleChildScrollView to enable scrolling
+        child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start, // Align children to the start
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
                 "Real Time",
@@ -99,59 +182,27 @@ class _CO2PageState extends State<CO2Page> {
                 ),
               ),
               const SizedBox(height: 10),
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      height: 200, // Set desired height
-                      child: WebView(
-                        initialUrl: 'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&panelId=25',
-                        javascriptMode: JavascriptMode.unrestricted,
-                        backgroundColor: Colors.transparent, // Make WebView background transparent
-                      ),
-                    ),
+              ...realTimeUrls.asMap().entries.map((entry) {
+                final index = entry.key;
+                final url = entry.value;
+                return Container(
+                  height: 200,
+                  margin: const EdgeInsets.only(bottom: 10),
+                  child: WebView(
+                    initialUrl: url,
+                    javascriptMode: JavascriptMode.unrestricted,
+                    backgroundColor: Colors.transparent,
+                    onWebViewCreated: (WebViewController webViewController) {
+                      if (index >= _webViewControllers.length) {
+                        _webViewControllers.add(webViewController);
+                      } else {
+                        _webViewControllers[index] = webViewController;
+                      }
+                    },
                   ),
-                  const SizedBox(width: 10), // Add spacing between WebViews
-                  Expanded(
-                    child: Container(
-                      height: 200, // Set desired height
-                      child: WebView(
-                        initialUrl: 'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&panelId=30', // Example URL for additional WebView
-                        javascriptMode: JavascriptMode.unrestricted,
-                        backgroundColor: Colors.transparent, // Make WebView background transparent
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      height: 200, // Set desired height
-                      child: WebView(
-                        initialUrl: 'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&panelId=63',
-                        javascriptMode: JavascriptMode.unrestricted,
-                        backgroundColor: Colors.transparent, // Make WebView background transparent
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 10), // Add spacing between WebViews
-                  Expanded(
-                    child: Container(
-                      height: 200, // Set desired height
-                      child: WebView(
-                        initialUrl: 'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&panelId=64', // Example URL for additional WebView
-                        javascriptMode: JavascriptMode.unrestricted,
-                        backgroundColor: Colors.transparent, // Make WebView background transparent
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20), // Add more spacing if needed
-
+                );
+              }).toList(),
+              const SizedBox(height: 20),
               Row(
                 children: [
                   const Text(
@@ -162,7 +213,7 @@ class _CO2PageState extends State<CO2Page> {
                       color: Color(0xFF5C5B5B),
                     ),
                   ),
-                  const SizedBox(width: 10), // Spacing between text and dropdown
+                  const SizedBox(width: 10),
                   DropdownButton<String>(
                     value: selectedRange,
                     items: ranges.map((String range) {
@@ -174,24 +225,26 @@ class _CO2PageState extends State<CO2Page> {
                     onChanged: (String? newValue) {
                       setState(() {
                         selectedRange = newValue!;
-                        analyticUrls = generateUrls(selectedRange); // Update the URLs
+                        // Update URLs when the selected range changes
+                        analyticUrls = generateAnalyticUrls(selectedRange, Theme.of(context).brightness);
                       });
                     },
                   ),
                 ],
               ),
-              const SizedBox(height: 10), // Add spacing between text and WebView
-
-              // Additional WebView for Analytic
+              const SizedBox(height: 10),
               ...analyticUrls.map((url) => Container(
-                width: double.infinity, // Set desired width
-                height: 300, // Set desired height
-                margin: const EdgeInsets.only(bottom: 10), // Add margin between WebViews
+                width: double.infinity,
+                height: 300,
+                margin: const EdgeInsets.only(bottom: 10),
                 child: WebView(
-                  key: ValueKey(url), // Add key to force rebuild
+                  key: ValueKey(url),
                   initialUrl: url,
                   javascriptMode: JavascriptMode.unrestricted,
-                  backgroundColor: Colors.transparent, // Make WebView background transparent
+                  backgroundColor: Colors.transparent,
+                  onWebViewCreated: (WebViewController webViewController) {
+                    // You might need to manage these controllers if you have multiple analytics views
+                  },
                 ),
               )).toList(),
             ],
