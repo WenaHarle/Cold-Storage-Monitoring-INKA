@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
-import 'homePage.dart';
-import 'regist.dart';
 
-class LoginPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   bool _obscureText = true;
+  bool _confirmObscureText = true;
 
   void _togglePasswordVisibility() {
     setState(() {
       _obscureText = !_obscureText;
+    });
+  }
+
+  void _toggleConfirmPasswordVisibility() {
+    setState(() {
+      _confirmObscureText = !_confirmObscureText;
     });
   }
 
@@ -25,19 +30,15 @@ class _LoginPageState extends State<LoginPage> {
       body: SingleChildScrollView(
         child: Container(
           height: MediaQuery.of(context).size.height,
-          child: _page(isDarkMode),
+          child: Column(
+            children: [
+              _logo(isDarkMode),
+              Expanded(child: _account(isDarkMode)), // Use Expanded to fit the remaining space
+              _bottomImages(isDarkMode),
+            ],
+          ),
         ),
       ),
-    );
-  }
-
-  Widget _page(bool isDarkMode) {
-    return Column(
-      children: [
-        Expanded(flex: 3, child: _logo(isDarkMode)),
-        Expanded(flex: 4, child: _account(isDarkMode)),
-        _bottomImages(isDarkMode),
-      ],
     );
   }
 
@@ -65,36 +66,42 @@ class _LoginPageState extends State<LoginPage> {
             stops: [0.1, 1],
           ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.sunny_snowing,
-              color: isDarkMode ? Colors.amber : Color(0xFF8ecae6),
-              size: 100.0,
-            ),
-            Text(
-              "Sign In",
-              style: TextStyle(
-                fontSize: 28.0,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Roboto',
-                color: isDarkMode ? Colors.white : Colors.black,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 40.0), // Added top padding
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start, // Start alignment
+            children: [
+              Icon(
+                Icons.person_add,
+                color: isDarkMode ? Colors.amber : Color(0xFF8ecae6),
+                size: 100.0,
               ),
-            ),
-            Text(
-              "Use the account below to sign in.",
-              style: TextStyle(
-                fontSize: 15.0,
-                fontFamily: 'Roboto',
-                color: isDarkMode ? Colors.grey[300] : Colors.black87,
+              SizedBox(height: 20.0), // Added spacing
+              Text(
+                "Register",
+                style: TextStyle(
+                  fontSize: 28.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Roboto',
+                  color: isDarkMode ? Colors.white : Colors.black,
+                ),
               ),
-            ),
-          ],
+              SizedBox(height: 10.0), // Added spacing
+              Text(
+                "Create a new account.",
+                style: TextStyle(
+                  fontSize: 15.0,
+                  fontFamily: 'Roboto',
+                  color: isDarkMode ? Colors.grey[300] : Colors.black87,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
+
 
   Widget _account(bool isDarkMode) {
     return Padding(
@@ -126,6 +133,24 @@ class _LoginPageState extends State<LoginPage> {
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
+              labelText: 'Email',
+              labelStyle: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: isDarkMode ? Colors.white54 : Colors.black54),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: isDarkMode ? Colors.white : Colors.blue),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+            ),
+          ),
+          SizedBox(height: 10.0),
+          TextField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
               labelText: 'Password',
               labelStyle: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
               suffixIcon: IconButton(
@@ -138,6 +163,24 @@ class _LoginPageState extends State<LoginPage> {
             ),
             obscureText: _obscureText,
           ),
+          SizedBox(height: 10.0),
+          TextField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              labelText: 'Confirm Password',
+              labelStyle: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  _confirmObscureText ? Icons.visibility : Icons.visibility_off,
+                  color: isDarkMode ? Colors.white : Colors.black,
+                ),
+                onPressed: _toggleConfirmPasswordVisibility,
+              ),
+            ),
+            obscureText: _confirmObscureText,
+          ),
           SizedBox(height: 20.0),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
@@ -149,13 +192,10 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => HomePage()),
-              );
+              // Add registration logic here
             },
             child: Text(
-              'Sign In',
+              'Register',
               style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
@@ -164,17 +204,13 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           SizedBox(height: 10.0),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.transparent,
-              shadowColor: Colors.transparent,
-              elevation: 0,
-            ),
+          TextButton(
             onPressed: () {
-
+              // Navigate back to the login page
+              Navigator.pop(context);
             },
             child: Text(
-              'Forget Password',
+              'Already have an account? Sign In',
               style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
@@ -182,27 +218,10 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           ),
-          TextButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => RegisterPage()),
-              );
-            },
-            child: Text(
-              'Register',
-              style: TextStyle(
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-                color: isDarkMode ? Colors.white : Color(0xFF5C5B5B),
-              ),
-            ),
-          ),
         ],
       ),
     );
   }
-
 
   Widget _bottomImages(bool isDarkMode) {
     return Padding(
