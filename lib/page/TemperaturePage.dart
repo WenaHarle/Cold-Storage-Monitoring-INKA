@@ -16,79 +16,79 @@ class _TemperaturePageState extends State<TemperaturePage> {
   // Define your URLs in arrays
   final List<String> darkModeRealTimeUrls = [
     'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1717050060475&to=1722582460614&theme=dark&panelId=10',
-    'http://example.com/dark/realtime_2',
-    'http://example.com/dark/realtime_3',
+    'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721636733937&to=1721679933937&theme=dark&panelId=17',
+    'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721647885012&to=1721669485012&theme=dark&panelId=11',
   ];
 
   final List<String> lightModeRealTimeUrls = [
     'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1717050060475&to=1722582460614&theme=light&panelId=10',
-    'http://example.com/light/realtime_2',
-    'http://example.com/light/realtime_3',
+    'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721636733937&to=1721679933937&theme=light&panelId=17',
+    'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721647885012&to=1721669485012&theme=light&panelId=11',
   ];
 
   final Map<String, List<String>> darkModeAnalyticUrls = {
     '10 minutes': [
-      'http://example.com/dark/10m_1',
-      'http://example.com/dark/10m_2',
-      'http://example.com/dark/10m_3',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=40',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648398160&to=1721669998160&theme=dark&panelId=69',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=70',
     ],
     '1 hour': [
-      'http://example.com/dark/1h_1',
-      'http://example.com/dark/1h_2',
-      'http://example.com/dark/1h_3',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=71',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=72',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=73',
     ],
     '1 day': [
-      'http://example.com/dark/1d_1',
-      'http://example.com/dark/1d_2',
-      'http://example.com/dark/1d_3',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=74',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=75',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=76',
     ],
     '1 week': [
-      'http://example.com/dark/1w_1',
-      'http://example.com/dark/1w_2',
-      'http://example.com/dark/1w_3',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=87',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=88',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=89',
     ],
     '1 month': [
-      'http://example.com/dark/1M_1',
-      'http://example.com/dark/1M_2',
-      'http://example.com/dark/1M_3',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=77',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=78',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=79',
     ],
     '1 year': [
-      'http://example.com/dark/1y_1',
-      'http://example.com/dark/1y_2',
-      'http://example.com/dark/1y_3',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=80',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=81',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=82',
     ],
   };
 
   final Map<String, List<String>> lightModeAnalyticUrls = {
     '10 minutes': [
-      'http://example.com/light/10m_1',
-      'http://example.com/light/10m_2',
-      'http://example.com/light/10m_3',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=40',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648398160&to=1721669998160&theme=light&panelId=69',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=70',
     ],
     '1 hour': [
-      'http://example.com/light/1h_1',
-      'http://example.com/light/1h_2',
-      'http://example.com/light/1h_3',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=71',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=72',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=73',
     ],
     '1 day': [
-      'http://example.com/light/1d_1',
-      'http://example.com/light/1d_2',
-      'http://example.com/light/1d_3',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=74',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=75',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=76',
     ],
     '1 week': [
-      'http://example.com/light/1w_1',
-      'http://example.com/light/1w_2',
-      'http://example.com/light/1w_3',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=87',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=88',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=89',
     ],
     '1 month': [
-      'http://example.com/light/1M_1',
-      'http://example.com/light/1M_2',
-      'http://example.com/light/1M_3',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=77',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=78',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=79',
     ],
     '1 year': [
-      'http://example.com/light/1y_1',
-      'http://example.com/light/1y_2',
-      'http://example.com/light/1y_3',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=80',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=81',
+      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=82',
     ],
   };
 
