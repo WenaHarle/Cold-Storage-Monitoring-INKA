@@ -1,22 +1,11 @@
 import 'package:flutter/material.dart';
-import 'homePage.dart';
-import 'regist.dart';
-import 'forgetpass.dart';
 
-class LoginPage extends StatefulWidget {
+class ForgotPasswordPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _ForgotPasswordPageState createState() => _ForgotPasswordPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  bool _obscureText = true;
-
-  void _togglePasswordVisibility() {
-    setState(() {
-      _obscureText = !_obscureText;
-    });
-  }
-
+class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   @override
   Widget build(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
@@ -26,19 +15,15 @@ class _LoginPageState extends State<LoginPage> {
       body: SingleChildScrollView(
         child: Container(
           height: MediaQuery.of(context).size.height,
-          child: _page(isDarkMode),
+          child: Column(
+            children: [
+              _logo(isDarkMode),
+              Expanded(child: _content(isDarkMode)), // Use Expanded to fit the remaining space
+              _bottomImages(isDarkMode),
+            ],
+          ),
         ),
       ),
-    );
-  }
-
-  Widget _page(bool isDarkMode) {
-    return Column(
-      children: [
-        Expanded(flex: 3, child: _logo(isDarkMode)),
-        Expanded(flex: 4, child: _account(isDarkMode)),
-        _bottomImages(isDarkMode),
-      ],
     );
   }
 
@@ -66,38 +51,43 @@ class _LoginPageState extends State<LoginPage> {
             stops: [0.1, 1],
           ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.sunny_snowing,
-              color: isDarkMode ? Colors.amber : Color(0xFF8ecae6),
-              size: 100.0,
-            ),
-            Text(
-              "Sign In",
-              style: TextStyle(
-                fontSize: 28.0,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Roboto',
-                color: isDarkMode ? Colors.white : Colors.black,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 40.0), // Adjust top padding as needed
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Icon(
+                Icons.lock_reset,
+                color: isDarkMode ? Colors.amber : Color(0xFF8ecae6),
+                size: 100.0,
               ),
-            ),
-            Text(
-              "Use the account below to sign in.",
-              style: TextStyle(
-                fontSize: 15.0,
-                fontFamily: 'Roboto',
-                color: isDarkMode ? Colors.grey[300] : Colors.black87,
+              SizedBox(height: 20.0), // Added spacing
+              Text(
+                "Forgot Password",
+                style: TextStyle(
+                  fontSize: 28.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Roboto',
+                  color: isDarkMode ? Colors.white : Colors.black,
+                ),
               ),
-            ),
-          ],
+              SizedBox(height: 10.0), // Added spacing
+              Text(
+                "Enter your email to reset your password.",
+                style: TextStyle(
+                  fontSize: 15.0,
+                  fontFamily: 'Roboto',
+                  color: isDarkMode ? Colors.grey[300] : Colors.black87,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _account(bool isDarkMode) {
+  Widget _content(bool isDarkMode) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -109,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
-              labelText: 'Username',
+              labelText: 'Email',
               labelStyle: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: isDarkMode ? Colors.white54 : Colors.black54),
@@ -120,24 +110,6 @@ class _LoginPageState extends State<LoginPage> {
                 borderRadius: BorderRadius.circular(10.0),
               ),
             ),
-          ),
-          SizedBox(height: 10.0),
-          TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              labelText: 'Password',
-              labelStyle: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
-              suffixIcon: IconButton(
-                icon: Icon(
-                  _obscureText ? Icons.visibility : Icons.visibility_off,
-                  color: isDarkMode ? Colors.white : Colors.black,
-                ),
-                onPressed: _togglePasswordVisibility,
-              ),
-            ),
-            obscureText: _obscureText,
           ),
           SizedBox(height: 20.0),
           ElevatedButton(
@@ -150,13 +122,10 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => HomePage()),
-              );
+              // Add password reset logic here
             },
             child: Text(
-              'Sign In',
+              'Send Reset Link',
               style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
@@ -165,21 +134,13 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           SizedBox(height: 10.0),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.transparent,
-              shadowColor: Colors.transparent,
-              elevation: 0,
-            ),
+          TextButton(
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ForgotPasswordPage()),
-              );
-
+              // Navigate back to the login page
+              Navigator.pop(context);
             },
             child: Text(
-              'Forget Password',
+              'Remember your password? Sign In',
               style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
@@ -187,27 +148,10 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           ),
-          TextButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => RegisterPage()),
-              );
-            },
-            child: Text(
-              'Register',
-              style: TextStyle(
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-                color: isDarkMode ? Colors.white : Color(0xFF5C5B5B),
-              ),
-            ),
-          ),
         ],
       ),
     );
   }
-
 
   Widget _bottomImages(bool isDarkMode) {
     return Padding(
