@@ -242,10 +242,17 @@ class _RegisterPageState extends State<RegisterPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                SizedBox(width: 10),
                 Image.asset(
                   'assets/images/Logo_Universitas_Brawijaya.png',
                   width: 40,
                   height: 40,
+                ),
+                SizedBox(width: 30),
+                Image.asset(
+                  'assets/images/logo_IMS.png',
+                  width: 100,
+                  height: 100,
                 ),
                 SizedBox(width: 10),
                 Image.asset(
@@ -253,6 +260,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   width: 80,
                   height: 80,
                 ),
+
               ],
             ),
           ],
