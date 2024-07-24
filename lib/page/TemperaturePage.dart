@@ -15,80 +15,80 @@ class _TemperaturePageState extends State<TemperaturePage> {
 
   // Define your URLs in arrays
   final List<String> darkModeRealTimeUrls = [
-    'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1717050060475&to=1722582460614&theme=dark&panelId=10',
-    'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721636733937&to=1721679933937&theme=dark&panelId=17',
-    'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721647885012&to=1721669485012&theme=dark&panelId=11',
+    'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1717050060475&to=1722582460614&theme=dark&panelId=10',
+    'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721636733937&to=1721679933937&theme=dark&panelId=17',
+    'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721647885012&to=1721669485012&theme=dark&panelId=11',
   ];
 
   final List<String> lightModeRealTimeUrls = [
-    'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1717050060475&to=1722582460614&theme=light&panelId=10',
-    'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721636733937&to=1721679933937&theme=light&panelId=17',
-    'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721647885012&to=1721669485012&theme=light&panelId=11',
+    'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1717050060475&to=1722582460614&theme=light&panelId=10',
+    'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721636733937&to=1721679933937&theme=light&panelId=17',
+    'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721647885012&to=1721669485012&theme=light&panelId=11',
   ];
 
   final Map<String, List<String>> darkModeAnalyticUrls = {
     '10 minutes': [
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=40',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648398160&to=1721669998160&theme=dark&panelId=69',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=70',
+      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=40',
+      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648398160&to=1721669998160&theme=dark&panelId=69',
+      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=70',
     ],
     '1 hour': [
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=71',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=72',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=73',
+      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=71',
+      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=72',
+      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=73',
     ],
     '1 day': [
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=74',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=75',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=76',
+      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=74',
+      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=75',
+      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=76',
     ],
     '1 week': [
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=87',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=88',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=89',
+      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=87',
+      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=88',
+      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=89',
     ],
     '1 month': [
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=77',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=78',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=79',
+      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=77',
+      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=78',
+      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=79',
     ],
     '1 year': [
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=80',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=81',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=82',
+      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=80',
+      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=81',
+      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=82',
     ],
   };
 
   final Map<String, List<String>> lightModeAnalyticUrls = {
     '10 minutes': [
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=40',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648398160&to=1721669998160&theme=light&panelId=69',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=70',
+      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=40',
+      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648398160&to=1721669998160&theme=light&panelId=69',
+      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=70',
     ],
     '1 hour': [
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=71',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=72',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=73',
+      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=71',
+      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=72',
+      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=73',
     ],
     '1 day': [
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=74',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=75',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=76',
+      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=74',
+      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=75',
+      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=76',
     ],
     '1 week': [
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=87',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=88',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=89',
+      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=87',
+      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=88',
+      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=89',
     ],
     '1 month': [
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=77',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=78',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=79',
+      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=77',
+      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=78',
+      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=79',
     ],
     '1 year': [
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=80',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=81',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=82',
+      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=80',
+      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=81',
+      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=82',
     ],
   };
 
