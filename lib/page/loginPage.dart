@@ -8,11 +8,45 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool _obscureText = true;
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   void _togglePasswordVisibility() {
     setState(() {
       _obscureText = !_obscureText;
     });
+  }
+
+  void _login(BuildContext context) {
+    String enteredUsername = _usernameController.text;
+    String enteredPassword = _passwordController.text;
+
+    if (enteredUsername == 'admin' && enteredPassword == '4dm1n@rispro') {
+      // Navigate to HomePage
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HomePage()),
+      );
+    } else {
+      // Show error message
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Login Failed'),
+            content: Text('Invalid username or password.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   @override
@@ -103,6 +137,7 @@ class _LoginPageState extends State<LoginPage> {
         children: [
           SizedBox(height: 20.0),
           TextField(
+            controller: _usernameController,
             decoration: InputDecoration(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
@@ -121,6 +156,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
           SizedBox(height: 10.0),
           TextField(
+            controller: _passwordController,
             decoration: InputDecoration(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
@@ -147,12 +183,7 @@ class _LoginPageState extends State<LoginPage> {
                 borderRadius: BorderRadius.circular(10.0),
               ),
             ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => HomePage()),
-              );
-            },
+            onPressed: () => _login(context),
             child: Text(
               'Login',
               style: TextStyle(
@@ -167,7 +198,6 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-
 
   Widget _bottomImages(bool isDarkMode) {
     return Padding(
@@ -206,7 +236,6 @@ class _LoginPageState extends State<LoginPage> {
                   width: 80,
                   height: 80,
                 ),
-
               ],
             ),
           ],

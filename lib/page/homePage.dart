@@ -121,10 +121,6 @@ class HomePage extends StatelessWidget {
             icon: Icon(Icons.person, color: Colors.white,), // Icon to be displayed
             onPressed: () {
               // Action to be performed when the icon is pressed
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ProfilePage()),
-              );
             },
           ),
         ],
