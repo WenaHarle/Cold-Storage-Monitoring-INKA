@@ -7,133 +7,80 @@ class TemperaturePage extends StatefulWidget {
 }
 
 class _TemperaturePageState extends State<TemperaturePage> {
-  String selectedRange = '10 minutes'; // Default selected range
-  final List<String> ranges = ['10 minutes', '1 hour', '1 day', '1 week', '1 month', '1 year'];
-  List<String> analyticUrls = [];
+  final List<String> ranges = [
+    'Last 1 Minute',
+    'Last 5 Minutes',
+    'Last 10 Minutes',
+    'Last 1 Hour',
+    'Last 24 Hours',
+    'Last 7 Days',
+    'Last 1 Month',
+    'Last 1 Year'
+  ];
+  String selectedRange = 'Last 1 Minute';
+
   List<String> realTimeUrls = [];
-  final List<WebViewController?> _webViewControllers = [];
-
-  // Define your URLs in arrays
-  final List<String> darkModeRealTimeUrls = [
-    'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1717050060475&to=1722582460614&theme=dark&panelId=10',
-    'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721636733937&to=1721679933937&theme=dark&panelId=17',
-    'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721647885012&to=1721669485012&theme=dark&panelId=11',
-  ];
-
-  final List<String> lightModeRealTimeUrls = [
-    'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1717050060475&to=1722582460614&theme=light&panelId=10',
-    'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721636733937&to=1721679933937&theme=light&panelId=17',
-    'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721647885012&to=1721669485012&theme=light&panelId=11',
-  ];
-
-  final Map<String, List<String>> darkModeAnalyticUrls = {
-    '10 minutes': [
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=40',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648398160&to=1721669998160&theme=dark&panelId=69',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=70',
-    ],
-    '1 hour': [
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=71',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=72',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=73',
-    ],
-    '1 day': [
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=74',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=75',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=76',
-    ],
-    '1 week': [
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=87',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=88',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=89',
-    ],
-    '1 month': [
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=77',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=78',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=79',
-    ],
-    '1 year': [
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=80',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=81',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=dark&panelId=82',
-    ],
-  };
-
-  final Map<String, List<String>> lightModeAnalyticUrls = {
-    '10 minutes': [
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=40',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648398160&to=1721669998160&theme=light&panelId=69',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=70',
-    ],
-    '1 hour': [
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=71',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=72',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=73',
-    ],
-    '1 day': [
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=74',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=75',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=76',
-    ],
-    '1 week': [
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=87',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=88',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=89',
-    ],
-    '1 month': [
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=77',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=78',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=79',
-    ],
-    '1 year': [
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=80',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=81',
-      'http://175.45.186.55:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1721648049600&to=1721669649600&theme=light&panelId=82',
-    ],
-  };
-
-  @override
-  void initState() {
-    super.initState();
-    // Perform initialization that doesn't rely on context or theme
-  }
+  List<String> analyticUrls = [];
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // Update URLs based on the theme
-    _updateUrlsAndReload();
+    // Initialize the URLs based on the current theme and range
+    realTimeUrls = generateRealTimeUrls(Theme.of(context).brightness);
+    analyticUrls = generateAnalyticUrls(selectedRange, Theme.of(context).brightness);
   }
 
-  void _updateUrlsAndReload() {
-    final brightness = Theme.of(context).brightness;
-    realTimeUrls = brightness == Brightness.dark ? darkModeRealTimeUrls : lightModeRealTimeUrls;
-    analyticUrls = generateAnalyticUrls(selectedRange, brightness);
-    // Reload WebViews after updating URLs
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _reloadWebViews();
-    });
+  // Generate Real-Time URLs based on the theme
+  List<String> generateRealTimeUrls(Brightness brightness) {
+    final theme = brightness == Brightness.dark ? 'dark' : 'light';
+
+    return [
+      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=1726644172786&to=1726644472786&theme=$theme&panelId=1',
+      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=1726644172786&to=1726644472786&theme=$theme&panelId=4',
+      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=1726644172786&to=1726644472786&theme=$theme&panelId=6',
+      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=1726644172786&to=1726644472786&theme=$theme&panelId=8',
+      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=1726644172786&to=1726644472786&theme=$theme&panelId=12',
+      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=1726644172786&to=1726644472786&theme=$theme&panelId=14',
+      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=1726644172786&to=1726644472786&theme=$theme&panelId=16',
+      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=1726644172786&to=1726644472786&theme=$theme&panelId=18',
+    ];
   }
 
+  // Generate Analytic URLs based on the theme and selected time range
   List<String> generateAnalyticUrls(String range, Brightness brightness) {
-    final baseUrls = brightness == Brightness.dark ? darkModeAnalyticUrls : lightModeAnalyticUrls;
-    return baseUrls[range] ?? [];
-  }
+    final theme = brightness == Brightness.dark ? 'dark' : 'light';
+    final now = DateTime.now().millisecondsSinceEpoch;
+    final rangeMap = {
+      'Last 1 Minute': now - 60000, // 1 minute = 60,000 milliseconds
+      'Last 5 Minutes': now - 300000, // 5 minutes = 300,000 milliseconds
+      'Last 10 Minutes': now - 600000, // 10 minutes = 600,000 milliseconds
+      'Last 1 Hour': now - 3600000, // 1 hour = 3,600,000 milliseconds
+      'Last 24 Hours': now - 86400000, // 24 hours = 86,400,000 milliseconds
+      'Last 7 Days': now - 604800000, // 7 days = 604,800,000 milliseconds
+      'Last 1 Month': now - 2592000000, // 1 month ≈ 2,592,000,000 milliseconds
+      'Last 1 Year': now - 31536000000, // 1 year ≈ 31,536,000,000 milliseconds
+    };
 
-  void _reloadWebViews() {
-    for (int i = 0; i < _webViewControllers.length; i++) {
-      if (realTimeUrls.length > i) {
-        _webViewControllers[i]?.loadUrl(realTimeUrls[i]);
-      }
-    }
+    final from = rangeMap[range] ?? now - 3600000;
+
+    return [
+      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=$from&to=$now&theme=$theme&panelId=42',
+      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=$from&to=$now&theme=$theme&panelId=43',
+      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=$from&to=$now&theme=$theme&panelId=44',
+      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=$from&to=$now&theme=$theme&panelId=45',
+      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=$from&to=$now&theme=$theme&panelId=47',
+      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=$from&to=$now&theme=$theme&panelId=48',
+      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=$from&to=$now&theme=$theme&panelId=49',
+      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=$from&to=$now&theme=$theme&panelId=50',
+    ];
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF5C5B5B), // Keep AppBar background color
-        title: Text(
+        backgroundColor: const Color(0xFF5C5B5B), // Keep AppBar background color
+        title: const Text(
           'Temperature',
           style: TextStyle(
             color: Colors.white, // Set AppBar title color to white
@@ -141,8 +88,8 @@ class _TemperaturePageState extends State<TemperaturePage> {
         ),
         automaticallyImplyLeading: false, // This removes the back button
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16.0), // Add padding to control spacing
+          const Padding(
+            padding: EdgeInsets.only(right: 16.0), // Add padding to control spacing
             child: Icon(
               Icons.thermostat,
               color: Colors.white,
@@ -165,26 +112,28 @@ class _TemperaturePageState extends State<TemperaturePage> {
                 ),
               ),
               const SizedBox(height: 10),
-              ...realTimeUrls.asMap().entries.map((entry) {
-                final index = entry.key;
-                final url = entry.value;
-                return Container(
-                  height: 200,
-                  margin: const EdgeInsets.only(bottom: 10),
-                  child: WebView(
-                    initialUrl: url,
-                    javascriptMode: JavascriptMode.unrestricted,
-                    backgroundColor: Colors.transparent,
-                    onWebViewCreated: (WebViewController webViewController) {
-                      if (index >= _webViewControllers.length) {
-                        _webViewControllers.add(webViewController);
-                      } else {
-                        _webViewControllers[index] = webViewController;
-                      }
-                    },
-                  ),
-                );
-              }).toList(),
+              // Use GridView to display real-time data in two rows
+              GridView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2, // Two columns
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                  childAspectRatio: 1.5, // Adjust for proper height/width ratio
+                ),
+                itemCount: realTimeUrls.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    height: 200,
+                    child: WebView(
+                      initialUrl: realTimeUrls[index],
+                      javascriptMode: JavascriptMode.unrestricted,
+                      backgroundColor: Colors.transparent,
+                    ),
+                  );
+                },
+              ),
               const SizedBox(height: 20),
               Row(
                 children: [
@@ -225,9 +174,6 @@ class _TemperaturePageState extends State<TemperaturePage> {
                   initialUrl: url,
                   javascriptMode: JavascriptMode.unrestricted,
                   backgroundColor: Colors.transparent,
-                  onWebViewCreated: (WebViewController webViewController) {
-                    // You might need to manage these controllers if you have multiple analytics views
-                  },
                 ),
               )).toList(),
             ],
