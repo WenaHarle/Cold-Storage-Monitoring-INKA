@@ -72,10 +72,10 @@ class _TemperaturePageState extends State<TemperaturePage> {
       'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=$from&to=$now&theme=$theme&panelId=43',
       'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=$from&to=$now&theme=$theme&panelId=44',
       'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=$from&to=$now&theme=$theme&panelId=45',
-      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=$from&to=$now&theme=$theme&panelId=47',
-      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=$from&to=$now&theme=$theme&panelId=48',
-      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=$from&to=$now&theme=$theme&panelId=49',
-      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=$from&to=$now&theme=$theme&panelId=50',
+      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=$from&to=$now&theme=$theme&panelId=52',
+      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=$from&to=$now&theme=$theme&panelId=53',
+      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=$from&to=$now&theme=$theme&panelId=54',
+      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=$from&to=$now&theme=$theme&panelId=55',
     ];
   }
 
@@ -144,7 +144,7 @@ class _TemperaturePageState extends State<TemperaturePage> {
               Row(
                 children: [
                   const Text(
-                    "Analytic",
+                    "Analytics",
                     style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,

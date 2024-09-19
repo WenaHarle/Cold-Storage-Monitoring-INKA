@@ -19,8 +19,8 @@ class HomePage extends StatelessWidget {
     Icons.air,             // Represents O2
     Icons.cloud,           // Represents CO2
     Icons.light,           // Represents CO2 Infrared
-    Icons.bolt,            // Represents Current
-    Icons.electrical_services, // Represents Voltage
+    Icons.electrical_services,            // Represents Current
+    Icons.bolt, // Represents Voltage
     Icons.speed
   ];
 
