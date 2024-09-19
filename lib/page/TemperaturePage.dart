@@ -35,14 +35,14 @@ class _TemperaturePageState extends State<TemperaturePage> {
     final theme = brightness == Brightness.dark ? 'dark' : 'light';
 
     return [
-      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=1726644172786&to=1726644472786&theme=$theme&panelId=1',
-      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=1726644172786&to=1726644472786&theme=$theme&panelId=4',
-      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=1726644172786&to=1726644472786&theme=$theme&panelId=6',
-      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=1726644172786&to=1726644472786&theme=$theme&panelId=8',
-      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=1726644172786&to=1726644472786&theme=$theme&panelId=12',
-      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=1726644172786&to=1726644472786&theme=$theme&panelId=14',
-      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=1726644172786&to=1726644472786&theme=$theme&panelId=16',
-      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=1726644172786&to=1726644472786&theme=$theme&panelId=18',
+      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=now&to=now&theme=$theme&panelId=1',
+      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=now&to=now&theme=$theme&panelId=4',
+      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=now&to=now&theme=$theme&panelId=6',
+      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=now&to=now&theme=$theme&panelId=8',
+      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=now&to=now&theme=$theme&panelId=12',
+      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=now&to=now&theme=$theme&panelId=14',
+      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=now&to=now&theme=$theme&panelId=16',
+      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=now&to=now&theme=$theme&panelId=18',
     ];
   }
 
