@@ -7,144 +7,85 @@ class VoltagePage extends StatefulWidget {
 }
 
 class _VoltagePageState extends State<VoltagePage> {
-  String selectedRange = '10 minutes'; // Default selected range
-  final List<String> ranges = ['10 minutes', '1 hour', '1 day', '1 week', '1 month', '1 year'];
-  List<String> analyticUrls = [];
+  final List<String> ranges = [
+    'Last 1 Minute',
+    'Last 5 Minutes',
+    'Last 10 Minutes',
+    'Last 1 Hour',
+    'Last 24 Hours',
+    'Last 7 Days',
+    'Last 1 Month',
+    'Last 1 Year',
+  ];
+  String selectedRange = 'Last 1 Minute';
+
   List<String> realTimeUrls = [];
-  final List<WebViewController?> _webViewControllers = [];
-
-  // Define your URLs in arrays
-  final List<String> darkModeRealTimeUrls = [
-    'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=31',
-    'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=32',
-    'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=33'
-  ];
-
-  final List<String> lightModeRealTimeUrls = [
-    'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=31',
-    'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=32',
-    'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=33'
-  ];
-
-  final Map<String, List<String>> darkModeAnalyticUrls = {
-    '10 minutes': [
-      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=19',
-      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=22',
-      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=23'
-    ],
-    '1 hour': [
-      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=19',
-      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=22',
-      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=23'
-    ],
-    '1 day': [
-      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=19',
-      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=22',
-      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=23'
-    ],
-    '1 week': [
-      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=19',
-      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=22',
-      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=23'
-    ],
-    '1 month': [
-      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=19',
-      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=22',
-      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=23'
-    ],
-    '1 year': [
-      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=19',
-      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=22',
-      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=dark&panelId=23'
-    ],
-  };
-
-  final Map<String, List<String>> lightModeAnalyticUrls = {
-    '10 minutes': [
-      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=19',
-      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=22',
-      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=23'
-    ],
-    '1 hour': [
-      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=19',
-      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=22',
-      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=23'
-    ],
-    '1 day': [
-      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=19',
-      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=22',
-      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=23'
-    ],
-    '1 week': [
-      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=19',
-      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=22',
-      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=23'
-    ],
-    '1 month': [
-      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=19',
-      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=22',
-      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=23'
-    ],
-    '1 year': [
-      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=19',
-      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=22',
-      'https://rarief.com:3000/d-solo/e001a7c7-1de1-4977-999c-30ec8a391284/data-sensor-detail?orgId=1&from=1720878240768&to=1721569440768&theme=light&panelId=23'
-    ],
-  };
+  List<String> analyticUrls = [];
 
   @override
   void initState() {
     super.initState();
-    // Perform initialization that doesn't rely on context or theme
+    final brightness = WidgetsBinding.instance.window.platformBrightness;
+    realTimeUrls = generateRealTimeUrls(brightness);
+    analyticUrls = generateAnalyticUrls(selectedRange, brightness);
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // Update URLs based on the theme
-    _updateUrlsAndReload();
+    realTimeUrls = generateRealTimeUrls(Theme.of(context).brightness);
+    analyticUrls = generateAnalyticUrls(selectedRange, Theme.of(context).brightness);
   }
 
-  void _updateUrlsAndReload() {
-    final brightness = Theme.of(context).brightness;
-    realTimeUrls = brightness == Brightness.dark ? darkModeRealTimeUrls : lightModeRealTimeUrls;
-    analyticUrls = generateAnalyticUrls(selectedRange, brightness);
-    // Reload WebViews after updating URLs
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _reloadWebViews();
-    });
+  List<String> generateRealTimeUrls(Brightness brightness) {
+    final theme = brightness == Brightness.dark ? 'dark' : 'light';
+    return [
+      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=now&to=now&theme=$theme&panelId=22',
+      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=now&to=now&theme=$theme&panelId=23',
+      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=now&to=now&theme=$theme&panelId=24',
+    ];
   }
 
   List<String> generateAnalyticUrls(String range, Brightness brightness) {
-    final baseUrls = brightness == Brightness.dark ? darkModeAnalyticUrls : lightModeAnalyticUrls;
-    return baseUrls[range] ?? [];
-  }
+    final theme = brightness == Brightness.dark ? 'dark' : 'light';
+    final now = DateTime.now().millisecondsSinceEpoch;
+    final rangeMap = {
+      'Last 1 Minute': now - 60000,
+      'Last 5 Minutes': now - 300000,
+      'Last 10 Minutes': now - 600000,
+      'Last 1 Hour': now - 3600000,
+      'Last 24 Hours': now - 86400000,
+      'Last 7 Days': now - 604800000,
+      'Last 1 Month': now - 2592000000,
+      'Last 1 Year': now - 31536000000,
+    };
 
-  void _reloadWebViews() {
-    for (int i = 0; i < _webViewControllers.length; i++) {
-      if (realTimeUrls.length > i) {
-        _webViewControllers[i]?.loadUrl(realTimeUrls[i]);
-      }
-    }
+    final from = rangeMap[range] ?? now - 3600000;
+
+    return [
+      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=now&to=now&theme=$theme&panelId=62',
+      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=now&to=now&theme=$theme&panelId=63',
+      'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=now&to=now&theme=$theme&panelId=64',
+    ];
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF5C5B5B), // Keep AppBar background color
-        title: Text(
+        backgroundColor: const Color(0xFF5C5B5B),
+        title: const Text(
           'Voltage',
           style: TextStyle(
-            color: Colors.white, // Set AppBar title color to white
+            color: Colors.white,
           ),
         ),
-        automaticallyImplyLeading: false, // This removes the back button
+        automaticallyImplyLeading: false,
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16.0), // Add padding to control spacing
+          const Padding(
+            padding: EdgeInsets.only(right: 16.0),
             child: Icon(
-              Icons.electrical_services,
+              Icons.bolt,
               color: Colors.white,
             ),
           ),
@@ -165,31 +106,35 @@ class _VoltagePageState extends State<VoltagePage> {
                 ),
               ),
               const SizedBox(height: 10),
-              ...realTimeUrls.asMap().entries.map((entry) {
-                final index = entry.key;
-                final url = entry.value;
-                return Container(
-                  height: 200,
-                  margin: const EdgeInsets.only(bottom: 10),
-                  child: WebView(
-                    initialUrl: url,
-                    javascriptMode: JavascriptMode.unrestricted,
-                    backgroundColor: Colors.transparent,
-                    onWebViewCreated: (WebViewController webViewController) {
-                      if (index >= _webViewControllers.length) {
-                        _webViewControllers.add(webViewController);
-                      } else {
-                        _webViewControllers[index] = webViewController;
-                      }
-                    },
-                  ),
-                );
-              }).toList(),
+              // Display real-time data in GridView (2 columns)
+              GridView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(), // Prevents scrolling inside GridView
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2, // 2 items per row
+                  crossAxisSpacing: 10.0,
+                  mainAxisSpacing: 10.0,
+                  childAspectRatio: 1.5, // Adjust the aspect ratio of the grid items
+                ),
+                itemCount: realTimeUrls.length,
+                itemBuilder: (context, index) {
+                  final url = realTimeUrls[index];
+                  return Container(
+                    height: 200,
+                    child: WebView(
+                      key: ValueKey(url),
+                      initialUrl: url,
+                      javascriptMode: JavascriptMode.unrestricted,
+                      backgroundColor: Colors.transparent,
+                    ),
+                  );
+                },
+              ),
               const SizedBox(height: 20),
               Row(
                 children: [
                   const Text(
-                    "Analytic",
+                    "Analytics",
                     style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
@@ -208,7 +153,6 @@ class _VoltagePageState extends State<VoltagePage> {
                     onChanged: (String? newValue) {
                       setState(() {
                         selectedRange = newValue!;
-                        // Update URLs when the selected range changes
                         analyticUrls = generateAnalyticUrls(selectedRange, Theme.of(context).brightness);
                       });
                     },
@@ -225,9 +169,6 @@ class _VoltagePageState extends State<VoltagePage> {
                   initialUrl: url,
                   javascriptMode: JavascriptMode.unrestricted,
                   backgroundColor: Colors.transparent,
-                  onWebViewCreated: (WebViewController webViewController) {
-                    // You might need to manage these controllers if you have multiple analytics views
-                  },
                 ),
               )).toList(),
             ],
