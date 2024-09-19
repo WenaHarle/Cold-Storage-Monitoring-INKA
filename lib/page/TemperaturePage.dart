@@ -23,17 +23,22 @@ class _TemperaturePageState extends State<TemperaturePage> {
   List<String> analyticUrls = [];
 
   @override
+  void initState() {
+    super.initState();
+    final brightness = WidgetsBinding.instance.window.platformBrightness;
+    realTimeUrls = generateRealTimeUrls(brightness);
+    analyticUrls = generateAnalyticUrls(selectedRange, brightness);
+  }
+
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // Initialize the URLs based on the current theme and range
     realTimeUrls = generateRealTimeUrls(Theme.of(context).brightness);
     analyticUrls = generateAnalyticUrls(selectedRange, Theme.of(context).brightness);
   }
 
-  // Generate Real-Time URLs based on the theme
   List<String> generateRealTimeUrls(Brightness brightness) {
     final theme = brightness == Brightness.dark ? 'dark' : 'light';
-
     return [
       'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=now&to=now&theme=$theme&panelId=1',
       'https://rarief.com:3000/d-solo/f77661b1-54aa-4ae1-b3d6-fe60e777effe/data-erispro?orgId=1&from=now&to=now&theme=$theme&panelId=4',
@@ -46,19 +51,18 @@ class _TemperaturePageState extends State<TemperaturePage> {
     ];
   }
 
-  // Generate Analytic URLs based on the theme and selected time range
   List<String> generateAnalyticUrls(String range, Brightness brightness) {
     final theme = brightness == Brightness.dark ? 'dark' : 'light';
     final now = DateTime.now().millisecondsSinceEpoch;
     final rangeMap = {
-      'Last 1 Minute': now - 60000, // 1 minute = 60,000 milliseconds
-      'Last 5 Minutes': now - 300000, // 5 minutes = 300,000 milliseconds
-      'Last 10 Minutes': now - 600000, // 10 minutes = 600,000 milliseconds
-      'Last 1 Hour': now - 3600000, // 1 hour = 3,600,000 milliseconds
-      'Last 24 Hours': now - 86400000, // 24 hours = 86,400,000 milliseconds
-      'Last 7 Days': now - 604800000, // 7 days = 604,800,000 milliseconds
-      'Last 1 Month': now - 2592000000, // 1 month ≈ 2,592,000,000 milliseconds
-      'Last 1 Year': now - 31536000000, // 1 year ≈ 31,536,000,000 milliseconds
+      'Last 1 Minute': now - 60000,
+      'Last 5 Minutes': now - 300000,
+      'Last 10 Minutes': now - 600000,
+      'Last 1 Hour': now - 3600000,
+      'Last 24 Hours': now - 86400000,
+      'Last 7 Days': now - 604800000,
+      'Last 1 Month': now - 2592000000,
+      'Last 1 Year': now - 31536000000,
     };
 
     final from = rangeMap[range] ?? now - 3600000;
@@ -79,17 +83,17 @@ class _TemperaturePageState extends State<TemperaturePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF5C5B5B), // Keep AppBar background color
+        backgroundColor: const Color(0xFF5C5B5B),
         title: const Text(
           'Temperature',
           style: TextStyle(
-            color: Colors.white, // Set AppBar title color to white
+            color: Colors.white,
           ),
         ),
-        automaticallyImplyLeading: false, // This removes the back button
+        automaticallyImplyLeading: false,
         actions: [
           const Padding(
-            padding: EdgeInsets.only(right: 16.0), // Add padding to control spacing
+            padding: EdgeInsets.only(right: 16.0),
             child: Icon(
               Icons.thermostat,
               color: Colors.white,
@@ -112,22 +116,24 @@ class _TemperaturePageState extends State<TemperaturePage> {
                 ),
               ),
               const SizedBox(height: 10),
-              // Use GridView to display real-time data in two rows
+              // Display real-time data in GridView (2 columns)
               GridView.builder(
-                physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(), // Prevents scrolling inside GridView
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, // Two columns
-                  mainAxisSpacing: 10,
-                  crossAxisSpacing: 10,
-                  childAspectRatio: 1.5, // Adjust for proper height/width ratio
+                  crossAxisCount: 2, // 2 items per row
+                  crossAxisSpacing: 10.0,
+                  mainAxisSpacing: 10.0,
+                  childAspectRatio: 1.5, // Adjust the aspect ratio of the grid items
                 ),
                 itemCount: realTimeUrls.length,
                 itemBuilder: (context, index) {
+                  final url = realTimeUrls[index];
                   return Container(
                     height: 200,
                     child: WebView(
-                      initialUrl: realTimeUrls[index],
+                      key: ValueKey(url),
+                      initialUrl: url,
                       javascriptMode: JavascriptMode.unrestricted,
                       backgroundColor: Colors.transparent,
                     ),
@@ -157,7 +163,6 @@ class _TemperaturePageState extends State<TemperaturePage> {
                     onChanged: (String? newValue) {
                       setState(() {
                         selectedRange = newValue!;
-                        // Update URLs when the selected range changes
                         analyticUrls = generateAnalyticUrls(selectedRange, Theme.of(context).brightness);
                       });
                     },

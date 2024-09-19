@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'homePage.dart';
-import 'regist.dart';
-import 'forgetpass.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -165,44 +163,6 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           SizedBox(height: 10.0),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.transparent,
-              shadowColor: Colors.transparent,
-              elevation: 0,
-            ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ForgotPasswordPage()),
-              );
-
-            },
-            child: Text(
-              'Forget Password',
-              style: TextStyle(
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-                color: isDarkMode ? Colors.grey[300] : Color(0xFF5C5B5B),
-              ),
-            ),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => RegisterPage()),
-              );
-            },
-            child: Text(
-              'Register',
-              style: TextStyle(
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-                color: isDarkMode ? Colors.white : Color(0xFF5C5B5B),
-              ),
-            ),
-          ),
         ],
       ),
     );
